@@ -3,7 +3,6 @@ import React from 'react'
 export default function Home2() {
   return (
     <div>
-      
       <div class="page-content">
         <section data-bg-img="images/pattern/02.png">
           <div class="container">
