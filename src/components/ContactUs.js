@@ -1,12 +1,62 @@
 import React from 'react'
-
+import { useState } from 'react';
 export default function ContactUs() {
+
+
+
+  const [info, setNote] = useState({name:"", email:"", mobile:"", msg:""})
+
+  const handleClick = (e)=>{
+      e.preventDefault();
+
+      // console.log(info);
+      addNote(info.name, info.email, info.mobile,info.msg);
+      
+  }
+
+
+  const onChange = (e)=>{
+      setNote({...info, [e.target.name]: e.target.value})
+  }
+
+  const addNote = async (name,email,mobile,msg) => {
+    await fetch('http://192.168.0.10/webroid/api.php', {
+    method: 'POST',
+    body: JSON.stringify({
+       name: name,
+       email: email,
+       mobile: mobile,
+       msg: msg,
+    }),
+
+  }
+  )
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data);
+    //  setPosts((posts) => [data, ...posts]);
+    //  setTitle('');
+    //  setBody('');
+  })
+  .catch((err) => {
+     console.log(err.message);
+  });
+    // const response = await fetch(`http://192.168.0.10/webroid/api.php`, {
+    //   method: 'POST',
+    //   body: JSON.stringify({name,email,mobile,message})
+    // });
+
+    //const note = await response.json();
+
+    //console.log(note);
+    // setNotes(notes.concat(note))
+  }
+
   return (
     <div>
     <section
       className="page-title overflow-hidden text-center bg-contain animatedBackground"
-      data-bg-img="images/pattern/08.png"
-    >
+      data-bg-img="images/pattern/08.png">
       <div className="container">
         <div className="row align-items-center">
           <div className="col-md-12">
@@ -16,9 +66,7 @@ export default function ContactUs() {
                 <li className="breadcrumb-item">
                   <a href="index.html">Home</a>
                 </li>
-                {/* <li className="breadcrumb-item"><a href="#">Contact</a>
-        </li> */}
-                <li className="breadcrumb-item active" aria-current="page">
+                  <li className="breadcrumb-item active" aria-current="page">
                   Contact Us
                 </li>
               </ol>
@@ -41,20 +89,16 @@ export default function ContactUs() {
                 <h2>Contact Us</h2>
               </div>
               <div className="contact-main">
-                <form
-                  id="contact-form"
-                  className="row"
-                  method="post"
-                  action="http://themeht.com/loptus/html/php/contact.php"
-                >
+                <form>
                   <div className="messages"></div>
                   <div className="form-group col-md-6">
                     <input
-                      id="form_name"
+                      id="name"
                       type="text"
                       name="name"
                       className="form-control"
                       placeholder="Name"
+                      onChange={onChange}
                       required="required"
                       data-error="Name is required."
                     />
@@ -62,11 +106,12 @@ export default function ContactUs() {
                   </div>
                   <div className="form-group col-md-6">
                     <input
-                      id="form_email"
+                      id="email"
                       type="email"
                       name="email"
                       className="form-control"
                       placeholder="Email"
+                      onChange={onChange}
                       required="required"
                       data-error="Valid email is required."
                     />
@@ -74,11 +119,12 @@ export default function ContactUs() {
                   </div>
                   <div className="form-group col-md-12">
                     <input
-                      id="form_phone"
+                      id="mobile"
                       type="tel"
-                      name="phone"
+                      name="mobile"
                       className="form-control"
                       placeholder="Phone"
+                      onChange={onChange}
                       required="required"
                       data-error="Phone is required"
                     />
@@ -86,18 +132,19 @@ export default function ContactUs() {
                   </div>
                   <div className="form-group col-md-12">
                     <textarea
-                      id="form_message"
-                      name="message"
+                      id="msg"
+                      name="msg"
                       className="form-control"
                       placeholder="Message"
                       rows="4"
+                     onChange={onChange}
                       required="required"
                       data-error="Please,leave us a message."
                     ></textarea>
                     <div className="help-block with-errors"></div>
                   </div>
                   <div className="col-md-12">
-                    <button className="btn btn-theme btn-radius">
+                    <button className="btn btn-theme btn-radius" type="submit" onClick={handleClick}>
                       <span>Send Message</span>
                     </button>
                   </div>
