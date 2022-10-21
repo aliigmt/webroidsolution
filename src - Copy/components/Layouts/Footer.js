@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-export default function Footer() {
-  return (
-    <div>
-            <footer className="footer white-bg z-index-1 overflow-hidden bg-contain" data-bg-img="images/pattern/01.png">
+
+export default class Footer extends Component {
+  render() {
+    return (
+      <footer className="footer white-bg z-index-1 overflow-hidden bg-contain" data-bg-img="images/pattern/01.png">
         <div className="round-p-animation"></div>
         <div className="primary-footer">
           <div className="container-fluid p-0">
@@ -88,6 +89,6 @@ export default function Footer() {
           </div>
         </div>
       </footer>
-    </div>
-  )
+    )
+  }
 }

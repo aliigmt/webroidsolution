@@ -1,5 +1,5 @@
-import React from 'react'
 import './App.css';
+import React, { Component } from 'react'
 import Home from './components/Home';
 import Footer from './components/Layouts/Footer';
 import Header from './components/Layouts/Header';
@@ -7,12 +7,16 @@ import AboutUs from './components/AboutUs';
 import Services from './components/Services';
 import ContactUs from './components/ContactUs';
 import Career from './components/Career';
-import {BrowserRouter,Routes,
+
+import {
+  BrowserRouter,
+  Routes,
   Route,
 } from "react-router-dom";
-export default function App() {
-  return (
-      <div>
+export class App extends Component {
+  render() {
+    return (
+   <div>
      <div className="page-wrapper">
       <div id="ht-preloader">
         <div className="loader clear-loader">
@@ -37,5 +41,9 @@ export default function App() {
         </BrowserRouter>
         </div>
       </div>
-  )
+      
+    )
+  }
 }
+
+export default App

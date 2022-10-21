@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { Component } from "react";
 
-export default function Career() {
-  return (
-    <div>
+export default class Career extends Component {
+  render() {
+    return (
+      <div>
         <section
           className="page-title o-hidden text-center bg-contain animatedBackground"
           data-bg-img="images/pattern/08.png"
@@ -158,5 +159,6 @@ export default function Career() {
           </section> 
         </div>
       </div>
-  )
+    );
+  }
 }
