@@ -1,17 +1,36 @@
 import React from 'react'
 import { useState } from 'react';
+import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function ContactUs() {
 
-
-
-  const [info, setNote] = useState({name:"", email:"", mobile:"", msg:""})
-
+ const [info, setNote] = useState({name:"", email:"", mobile:"", msg:""})
   const handleClick = (e)=>{
       e.preventDefault();
-
-      // console.log(info);
-      addNote(info.name, info.email, info.mobile,info.msg);
-      
+      if(info.name.length == 0){
+          toast.warn("Please Enter Name!");
+       }else if(info.email.length == 0){
+         toast.warn("Please Enter Email!");
+        }else if(info.mobile.length == 0){
+          toast.warn("Please Enter Mobile!");
+        }else if(info.msg.length == 0){
+          toast.warn("Please Enter Message!");
+       }else{
+        axios.post('http://192.168.0.10/webroid/api.php', info).then(function(response){
+          toast(response.data['message'], {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,  
+          progress: undefined,
+          theme: "light",
+          });     
+          setNote({name:"", email:"", mobile:"", msg:""});
+         });
+       }      
   }
 
 
@@ -19,28 +38,34 @@ export default function ContactUs() {
       setNote({...info, [e.target.name]: e.target.value})
   }
 
-  const addNote = async (name,email,mobile,msg) => {
-    await fetch('http://192.168.0.10/webroid/api.php', {
-    method: 'POST',
-    body: JSON.stringify({
-       name: name,
-       email: email,
-       mobile: mobile,
-       msg: msg,
-    }),
 
-  }
-  )
-  .then((response) => response.json())
-  .then((data) => {
-    console.log(data);
-    //  setPosts((posts) => [data, ...posts]);
-    //  setTitle('');
-    //  setBody('');
-  })
-  .catch((err) => {
-     console.log(err.message);
-  });
+
+
+  // const addNote = async (name,email,mobile,msg) => {
+
+
+
+  //   await fetch('http://192.168.0.10/webroid/api.php', {
+  //   method: 'POST',
+  //   body: JSON.stringify({
+  //      name: name,
+  //      email: email,
+  //      mobile: mobile,
+  //      msg: msg,
+  //   }),
+
+  // }
+  //)
+  // .then((response) => response.json())
+  // .then((data) => {
+  //   console.log(data);
+  //   //  setPosts((posts) => [data, ...posts]);
+  //   //  setTitle('');
+  //   //  setBody('');
+  // })
+  // .catch((err) => {
+  //    console.log(err.message);
+  // });
     // const response = await fetch(`http://192.168.0.10/webroid/api.php`, {
     //   method: 'POST',
     //   body: JSON.stringify({name,email,mobile,message})
@@ -50,7 +75,7 @@ export default function ContactUs() {
 
     //console.log(note);
     // setNotes(notes.concat(note))
-  }
+  //}
 
   return (
     <div>
@@ -78,6 +103,7 @@ export default function ContactUs() {
         <img className="img-fluid" src="images/bg/06.png" alt="" />
       </div>
     </section>
+    <ToastContainer />
 
     <div className="page-content">
       <section className="contact-1" data-bg-img="images/pattern/02.png">
@@ -99,6 +125,7 @@ export default function ContactUs() {
                       className="form-control"
                       placeholder="Name"
                       onChange={onChange}
+                      value={info.name}
                       required="required"
                       data-error="Name is required."
                     />
@@ -112,6 +139,7 @@ export default function ContactUs() {
                       className="form-control"
                       placeholder="Email"
                       onChange={onChange}
+                      value={info.email}
                       required="required"
                       data-error="Valid email is required."
                     />
@@ -125,6 +153,7 @@ export default function ContactUs() {
                       className="form-control"
                       placeholder="Phone"
                       onChange={onChange}
+                      value={info.mobile}
                       required="required"
                       data-error="Phone is required"
                     />
@@ -138,6 +167,7 @@ export default function ContactUs() {
                       placeholder="Message"
                       rows="4"
                      onChange={onChange}
+                     value={info.msg}
                       required="required"
                       data-error="Please,leave us a message."
                     ></textarea>

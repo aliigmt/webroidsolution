@@ -41,11 +41,11 @@ export default function Footer() {
                     <div className="row">
                       <div className="col-sm-5">
                       <ul className="list-unstyled">
-                          <li><Link href="/">Home</Link></li>
-                          <li><Link href="/aboutus">About Us</Link></li>
-                          <li><Link href="/services">Services</Link></li>
-                          <li><Link href="/career">Career</Link></li>
-                          <li><Link href="/contactus">Contact Us</Link></li>
+                          <li><Link to="/">Home</Link></li>
+                          <li><Link to="/aboutus">About Us</Link></li>
+                          <li><Link to="/services">Services</Link></li>
+                          <li><Link to="/career">Career</Link></li>
+                          <li><Link to="/contactus">Contact Us</Link></li>
                       </ul>
                       </div>
                    </div>
